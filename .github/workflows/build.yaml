@@ -1,36 +1,13 @@
-name: build
+name: check-rust
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - 'v*'
-env:
-  IS_STABLE: ${{ !contains(github.ref, '-') }}
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-          - platform: android
-            os: ubuntu-latest
-          - platform: windows
-            os: windows-latest
-            arch: amd64
-          - platform: linux
-            os: ubuntu-latest
-            arch: amd64
-          - platform: macos
-            os: macos-13
-            arch: amd64
-          - platform: macos
-            os: macos-latest
-            arch: arm64
-
+  check:
+    runs-on: ubuntu-latest
     steps:
-      - name: Check Rust and Cargo version
+      - name: Show Rust and Cargo version
         run: |
           rustc --version
           cargo --version
